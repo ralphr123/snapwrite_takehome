@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/snapwrite_takehome/static/css/main.e6c13ad2.css",
+    "main.js": "/snapwrite_takehome/static/js/main.38a31e68.js",
+    "static/js/787.95060c79.chunk.js": "/snapwrite_takehome/static/js/787.95060c79.chunk.js",
+    "index.html": "/snapwrite_takehome/index.html",
+    "main.e6c13ad2.css.map": "/snapwrite_takehome/static/css/main.e6c13ad2.css.map",
+    "main.38a31e68.js.map": "/snapwrite_takehome/static/js/main.38a31e68.js.map",
+    "787.95060c79.chunk.js.map": "/snapwrite_takehome/static/js/787.95060c79.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.38a31e68.js"
+  ]
+}
