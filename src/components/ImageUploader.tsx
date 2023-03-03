@@ -1,5 +1,5 @@
 import { Flex, FormLabel, Image, Input, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import UploadIcon from "../assets/upload-icon.png";
 
 const BG_COLOR_RESTING = "#ffffff";
