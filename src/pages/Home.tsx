@@ -7,28 +7,33 @@ import { TextBox } from "../components/TextBox";
 const DEFAULT_TEXT =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dapibus, neque commodo mattis vehicula, leo dolor fermentum ligula, sit amet.\n\nNulla vitae hendrerit quam. Etiam imperdiet aliquam eleifend. Praesent pulvinar urna id nisl rhoncus tristique. Aenean cursus elit quam, id dictum dolor porttitor quis. Duis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sollicitudin.";
 
+const NUM_TEXTBOXES = 2;
+
 export const Home = () => {
-  const [topText, setTopText] = useState<string>(
-    sessionStorage.getItem("snapwrite_topText") || DEFAULT_TEXT
+  const [text, setText] = useState<string[]>(
+    sessionStorage.getItem("snapwrite_text")
+      ? JSON.parse(sessionStorage.getItem("snapwrite_text")!)
+      : []
   );
-  const [bottomText, setBottomText] = useState<string>(
-    sessionStorage.getItem("snapwrite_bottomText") || DEFAULT_TEXT
-  );
+
   const [imageUrl, setImageUrl] = useState<string | undefined>(
     sessionStorage.getItem("snapwrite_imageURL") || undefined
   );
 
   useEffect(() => {
-    debounce(() => {
-      sessionStorage.setItem("snapwrite_topText", topText);
-    }, 500)();
-  }, [topText]);
+    if (!sessionStorage.getItem("snapwrite_text")) {
+      const _text = [];
+      for (let i = 0; i < NUM_TEXTBOXES; i++) _text.push(DEFAULT_TEXT);
+      sessionStorage.setItem("snapwrite_text", JSON.stringify(_text));
+      setText(_text);
+    }
+  }, []);
 
   useEffect(() => {
     debounce(() => {
-      sessionStorage.setItem("snapwrite_bottomText", bottomText);
+      sessionStorage.setItem("snapwrite_text", JSON.stringify(text));
     }, 500)();
-  }, [bottomText]);
+  }, [...text]);
 
   useEffect(() => {
     if (imageUrl) {
@@ -49,8 +54,17 @@ export const Home = () => {
     >
       <ImageUploader imageUrl={imageUrl} onChangeImageUrl={setImageUrl} />
       <Flex direction="column" gap="1.2em">
-        <TextBox value={topText} onChange={setTopText} />
-        <TextBox value={bottomText} onChange={setBottomText} />
+        {text.map((str, i) => (
+          <TextBox
+            key={i}
+            value={str}
+            onChange={(newStr) => {
+              const _text = text.slice();
+              _text[i] = newStr;
+              setText(_text);
+            }}
+          />
+        ))}
       </Flex>
     </Flex>
   );
